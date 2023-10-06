@@ -82,7 +82,7 @@ export default {
   props: {
     hideCallBack: Function,
     value: Boolean,
-    destClassis: Object
+    destClassis: Object,
   },
   mounted() {},
   data() {
@@ -96,7 +96,7 @@ export default {
       uploading: false,
       currentFile: {
         type: null,
-        content: null
+        content: null,
       },
       currentFileInfo: null,
       uploadPercentage: 0,
@@ -106,41 +106,41 @@ export default {
         { color: "#6f7ad3", percentage: 60 },
         { color: "#1989fa", percentage: 80 },
         { color: "#5cb87a", percentage: 95 },
-        { color: "#57b845", percentage: 100 }
+        { color: "#57b845", percentage: 100 },
       ],
-      message: ""
+      message: "",
     };
   },
   computed: {
-    userId: function() {
+    userId: function () {
       return this.$store.state.user.info.id;
-    }
+    },
   },
   watch: {
-    userId: function() {},
-    value: function(bool) {
+    userId: function () {},
+    value: function (bool) {
       this.show = bool;
       if (bool) {
         document.addEventListener("click", this.clickListener);
       }
-    }
+    },
   },
   methods: {
-    uploadSuccess: function() {
+    uploadSuccess: function () {
       this.createRes = false;
       this.uploading = false;
       this.refresh = true;
       this.delFile();
       let _this = this;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.refresh = false;
       }, 50);
     },
-    uploadError: function() {
+    uploadError: function () {
       this.uploading = false;
     },
-    beforeUpload: function() {},
-    checkFileAndUpload: function(data) {
+    beforeUpload: function () {},
+    checkFileAndUpload: function (data) {
       this.uploadPercentage = 0;
       this.uploading = true;
       let file = data.file;
@@ -161,7 +161,7 @@ export default {
         return "MEMBER";
       }
     },
-    upload: function(md5, file) {
+    upload: function (md5, file) {
       //创建 formData 对象
       let formData = new FormData();
       // 向 formData 对象中添加文件
@@ -172,14 +172,14 @@ export default {
       formData.append("fileMd5", md5);
       let _this = this;
       tryUpload(formData, this.getId(), this.getOption())
-        .then(function() {
+        .then(function () {
           _this.uploadPercentage = 100;
           _this.$elementMessage("文件秒传成功", "success", 1000);
           _this.uploadSuccess();
         })
-        .catch(function() {
+        .catch(function () {
           readyForUpload(formData, _this.getId(), _this.getOption())
-            .then(function(res) {
+            .then(function (res) {
               let fileData = new FormData();
               fileData.append("md5", md5);
               fileData.append("name", file.name);
@@ -190,7 +190,7 @@ export default {
               _this.uploadPercentage = (2 / (6 + totalNum)).toFixed(2) * 100;
               _this.uploadPart(fileData, 3, file);
             })
-            .catch(err => {
+            .catch((err) => {
               _this.uploadError();
               console.info(err);
               _this.$elementMessage(err.message, "error", 1000);
@@ -233,16 +233,16 @@ export default {
       let percent = ((2 + cursor) / (parseInt(totalNum) + 6)).toFixed(2);
       _this.uploadPercentage = parseInt((percent * 100).toFixed(0));
       doUpload(formData, this.getId(), this.getOption())
-        .then(function() {
+        .then(function () {
           let cursor = parseInt(formData.get("cursor"));
           formData.set("cursor", cursor + 1);
           if (parseInt(formData.get("cursor")) < totalNum) {
             _this.uploadPart(formData, retry, file);
           } else {
             _this.message = "后台正在处理...";
-            setTimeout(function() {
+            setTimeout(function () {
               _this.uploadPercentage = 100;
-              setTimeout(function() {
+              setTimeout(function () {
                 _this.uploading = false;
                 _this.uploadPercentage = 0;
               }, 1500);
@@ -251,7 +251,7 @@ export default {
             _this.refreshData();
           }
         })
-        .catch(function() {
+        .catch(function () {
           retry--;
           if (retry > 0) {
             _this.uploadPart(formData, retry, file);
@@ -286,8 +286,8 @@ export default {
       this.fileName = "";
       this.$refs.upload.clearFiles();
       this.showPreview = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

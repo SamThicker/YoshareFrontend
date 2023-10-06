@@ -50,11 +50,7 @@
       >
         抱歉，该文件不支持预览，请下载后查看。
       </div>
-      <div
-        id="unFinished"
-        class="preview-component"
-        v-show="!finished"
-      >
+      <div id="unFinished" class="preview-component" v-show="!finished">
         该文件尚未上传完毕，请继续上传
       </div>
     </div>
@@ -67,10 +63,10 @@
 export default {
   name: "FileView",
   props: {
-    fileInfo: Object
+    fileInfo: Object,
   },
   computed: {
-    type: function() {
+    type: function () {
       if (!this.fileInfo) return "";
       let tag = "OTHER";
       switch (this.fileType) {
@@ -93,7 +89,7 @@ export default {
       }
       return this.fileInfo.type + tag;
     },
-    size: function() {
+    size: function () {
       if (!this.fileInfo || !this.fileInfo.finished) return "";
       let tags = ["Byte", "KB", "MB", "GB"];
       let num = this.fileInfo.size;
@@ -104,7 +100,7 @@ export default {
         num = num / 1024;
       }
       return num.toFixed(2) + "GB";
-    }
+    },
   },
   data() {
     return {
@@ -115,14 +111,14 @@ export default {
       videoSrc: "",
       imageSrc: "",
       audioSrc: "",
-      finished: true
+      finished: true,
     };
   },
   watch: {
-    fileInfo: function() {
+    fileInfo: function () {
       this.pausePlaying();
       this.setType();
-    }
+    },
   },
   methods: {
     setType() {
@@ -181,8 +177,8 @@ export default {
       document.body.appendChild(tempForm);
       tempForm.submit();
       return tempForm;
-    }
-  }
+    },
+  },
 };
 </script>
 

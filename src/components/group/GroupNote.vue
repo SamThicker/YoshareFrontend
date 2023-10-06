@@ -27,24 +27,24 @@ export default {
         star: this.itemStar,
         unstar: this.itemUnstar,
         share: this.itemShare,
-        del: null
+        del: null,
       },
       classificationsCallBack: {
         click: this.classisClick,
         more: this.classisEdit,
-        addRes: this.addNote
+        addRes: this.addNote,
       },
       refresh: false,
-      toTop: false
+      toTop: false,
     };
   },
   computed: {
-    userId: function() {
+    userId: function () {
       return this.$store.state.user.info.id;
     },
-    groupId: function() {
+    groupId: function () {
       return this.$route.params.groupId;
-    }
+    },
   },
   methods: {
     itemClick(resource) {
@@ -59,7 +59,7 @@ export default {
     itemShare() {},
     classisClick() {},
     classisEdit() {},
-    addNote: function(classis) {
+    addNote: function (classis) {
       let classId = classis.id;
       let path = "/workBench/" + this.userId;
       let query = {};
@@ -68,8 +68,8 @@ export default {
       }
       query.groupId = this.groupId;
       this.$router.push({ path: path, query: query });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -81,7 +81,6 @@ export default {
   /*display: -webkit-box;*/
   display: flex;
 }
-
 
 .resource-panel {
   width: 500px;
@@ -110,9 +109,5 @@ export default {
   flex-shrink: 1;
   border: 1px solid #eee;
   box-sizing: border-box;
-
-
-
-
 }
 </style>

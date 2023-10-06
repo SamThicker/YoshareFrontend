@@ -8,7 +8,7 @@
 import GroupInfo from "./GroupInfo";
 export default {
   name: "GroupSetting",
-  components: { GroupInfo }
+  components: { GroupInfo },
 };
 </script>
 

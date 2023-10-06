@@ -1,6 +1,7 @@
+// @ts-nocheck
 import axios from "axios";
 import store from "../../src/store";
-import { MessageBox } from "element-ui";
+//import { MessageBox } from "element-plus";
 import { getToken } from "../utils/auth";
 
 // 创建axios实例

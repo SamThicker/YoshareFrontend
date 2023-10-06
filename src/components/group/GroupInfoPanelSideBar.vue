@@ -24,30 +24,30 @@ export default {
           name: "基本信息",
           icon: "",
           link: "",
-          label: "simple"
-        }
+          label: "simple",
+        },
       ],
       active: -1,
-      link: []
+      link: [],
     };
   },
   watch: {
-    groupId: function() {
+    groupId: function () {
       this.setLink();
       this.setActiveEl();
     },
-    path: function() {
+    path: function () {
       this.setActiveEl();
       this.setLink();
-    }
+    },
   },
   computed: {
-    groupId: function() {
+    groupId: function () {
       return this.$route.params.groupId;
     },
-    path: function() {
+    path: function () {
       return this.$route.path;
-    }
+    },
   },
   mounted() {
     this.setActiveEl();
@@ -58,7 +58,7 @@ export default {
       this.active = index;
     },
     setLink() {
-      this.settings.forEach(setting => {
+      this.settings.forEach((setting) => {
         setting.link = "/group/" + this.groupId + "/setting/" + setting.label;
       });
     },
@@ -66,13 +66,13 @@ export default {
       let pathParts = this.$route.path.split("/");
       let option = pathParts[pathParts.length - 1];
       let _this = this;
-      this.settings.forEach(function(setting, index) {
+      this.settings.forEach(function (setting, index) {
         if (setting.label === option) {
           _this.activeEl(index);
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

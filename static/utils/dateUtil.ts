@@ -1,3 +1,4 @@
+// @ts-nocheck
 export function formatDateTime(inputTime) {
   let date = new Date(inputTime);
   let y = date.getFullYear();

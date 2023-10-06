@@ -22,7 +22,7 @@
 export default {
   name: "HeaderBarPro",
   props: {
-    switch_able: Boolean
+    switch_able: Boolean,
   },
   data() {
     return {
@@ -30,11 +30,11 @@ export default {
       topValue: 0, // 标识位
       isUp: true, // 判断是否是向上滚动
       changeUpPos: 0, // 设置从向下滚动到向上滚动时的位置（距离滚动条顶部）
-      changeDownPos: 0 // 设置从向上滚动到向下滚动时的位置（距离滚动条顶部）
+      changeDownPos: 0, // 设置从向上滚动到向下滚动时的位置（距离滚动条顶部）
     };
   },
   watch: {
-    switch_able: function(bool) {
+    switch_able: function (bool) {
       if (bool) {
         this.scrollTop = 0; // 初始化滚动条为位置为0
         this.topValue = this.getScrollTop();
@@ -44,7 +44,7 @@ export default {
         this.isUp = true;
         document.removeEventListener("scroll", this.scrollListener);
       }
-    }
+    },
   },
   mounted() {
     if (this.switch_able) {
@@ -68,7 +68,7 @@ export default {
         }
       }
       let _this = this;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.topValue = _this.scrollTop; //异步标记当前位置，用下次位置与这次的比较，判断滚动条在这期间的滚动状态
       }, 0);
     },
@@ -81,8 +81,8 @@ export default {
         scrollTop = document.body.scrollTop;
       }
       return scrollTop;
-    }
-  }
+    },
+  },
 };
 </script>
 

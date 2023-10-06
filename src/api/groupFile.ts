@@ -1,3 +1,4 @@
+// @ts-nocheck
 import request from "../../static/utils/request";
 import corsRequestPro from "../../static/utils/corsRequestPro";
 
@@ -16,9 +17,9 @@ export function uploadFileToServer(groupId, formData) {
     url: "/file/group/" + groupId + "/file",
     method: "put",
     headers: {
-      "content-type": "application/x-www-form-urlencoded"
+      "content-type": "application/x-www-form-urlencoded",
     },
-    data: formData
+    data: formData,
   });
 }
 
@@ -27,9 +28,9 @@ export function uploadExistFileToServer(groupId, formData) {
     url: "/file/group/" + groupId + "/existFile",
     method: "put",
     headers: {
-      "content-type": "application/x-www-form-urlencoded"
+      "content-type": "application/x-www-form-urlencoded",
     },
-    data: formData
+    data: formData,
   });
 }
 
@@ -38,15 +39,15 @@ export function downloadFile(fileId) {
     url: "/file/member/file/" + fileId,
     method: "get",
     headers: {
-      responseType: "blob"
-    }
+      responseType: "blob",
+    },
   });
 }
 
 export function getFileInfo(groupId, fileId) {
   return request({
     url: "/file/group/" + groupId + "/fileInfo/" + fileId,
-    method: "get"
+    method: "get",
   });
 }
 
@@ -55,8 +56,8 @@ export function download(url) {
     url: url,
     method: "get",
     headers: {
-      "Content-Disposition": "attachment"
+      "Content-Disposition": "attachment",
       // origin: "127.0.0.1"
-    }
+    },
   });
 }

@@ -13,7 +13,6 @@
     </div>
 
     <file-upload v-model="showUpload" :dest-classis="destClassis"></file-upload>
-
   </div>
 </template>
 
@@ -38,11 +37,11 @@ export default {
         star: this.itemStarClicked,
         unstar: this.itemUnstarClicked,
         share: this.itemShareClicked,
-        del: null
+        del: null,
       },
       classificationsCallBack: {
         click: null,
-        addRes: this.addFileResDialog
+        addRes: this.addFileResDialog,
       },
       refresh: false,
       createRes: false,
@@ -54,49 +53,49 @@ export default {
       uploading: false,
       currentFile: {
         type: null,
-        content: null
+        content: null,
       },
-      currentFileInfo: null
+      currentFileInfo: null,
     };
   },
   computed: {
-    userId: function() {
+    userId: function () {
       return this.$store.state.user.info.id;
     },
-    groupId: function() {
+    groupId: function () {
       return this.$route.params.groupId;
-    }
+    },
   },
   watch: {
-    userId: function() {},
-    note: function() {}
+    userId: function () {},
+    note: function () {},
   },
   methods: {
     //资源预览项点击事件
-    fileClicked: function(resource) {
+    fileClicked: function (resource) {
       let _this = this;
       getFileInfo(_this.groupId, resource.resourceRef)
-        .then(function(res) {
+        .then(function (res) {
           _this.currentFileInfo = res.data;
           // _this.currentFile.type = res.headers["content-type"];
           // _this.currentFile.content = res.data;
         })
         .catch();
     },
-    itemStarClicked: function() {},
-    itemUnstarClicked: function() {},
-    itemShareClicked: function() {},
+    itemStarClicked: function () {},
+    itemUnstarClicked: function () {},
+    itemShareClicked: function () {},
     itemDelClicked(resource) {
       let _this = this;
       this.$confirm("此操作将永久删除该笔记, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           _this.deleteLoading = true;
           delResourceNote(_this.$store.state.user.info.id, resource)
-            .then(function() {
+            .then(function () {
               let index = _this.resources.indexOf(resource);
               if (index > -1) {
                 _this.resources.splice(index, 1);
@@ -112,17 +111,17 @@ export default {
           _this.deleteLoading = false;
         });
     },
-    uploadSuccess: function() {
+    uploadSuccess: function () {
       this.createRes = false;
       this.uploading = false;
       this.refresh = true;
       this.delFile();
       let _this = this;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.refresh = false;
       }, 50);
     },
-    addFileResDialog: function(classis) {
+    addFileResDialog: function (classis) {
       this.destClassis = classis;
       this.showUpload = true;
     },
@@ -133,11 +132,11 @@ export default {
     refreshData() {
       let _this = this;
       this.refresh = true;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.refresh = false;
       }, 50);
-    }
-  }
+    },
+  },
 };
 </script>
 

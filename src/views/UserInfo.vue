@@ -21,19 +21,19 @@ export default {
   components: { UserInfoPanel, HeaderBarPro, HeaderMenu },
   data() {
     return {
-      switch_able: false
+      switch_able: false,
     };
   },
   computed: {
     ...mapState({
-      account: state => state.user.account
-    })
+      account: (state) => state.user.account,
+    }),
   },
   methods: {
     changeSwitchAble(bool) {
       this.switch_able = bool;
-    }
-  }
+    },
+  },
 };
 </script>
 

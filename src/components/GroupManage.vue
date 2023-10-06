@@ -115,29 +115,29 @@ export default {
     this.initializeSideBar();
     this.setCurrentGroup();
   },
-  destroyed() {
+  unmounted() {
     document.removeEventListener("click", this.clickListener);
   },
   watch: {
-    groups: function(groups) {
-      groups.forEach(group => {
+    groups: function (groups) {
+      groups.forEach((group) => {
         if (parseInt(group.id) === parseInt(this.currentGroupId)) {
           this.currentGroup = group;
         }
       });
     },
-    deep: true
+    deep: true,
   },
   data() {
     return {
       currentGroup: null,
-      groupList: false
+      groupList: false,
     };
   },
   computed: {
     otherGroups() {
       let current = parseInt(this.currentGroupId);
-      return this.groups.filter(group => {
+      return this.groups.filter((group) => {
         let id = parseInt(group.id);
         return id !== current;
       });
@@ -150,7 +150,7 @@ export default {
     },
     currentGroupId() {
       return this.$route.params.groupId;
-    }
+    },
   },
   methods: {
     backHome() {
@@ -197,18 +197,18 @@ export default {
       let pathParts = path.split("/");
       pathParts[2] = id;
       path = "";
-      pathParts.forEach(part => (path += "/" + part));
+      pathParts.forEach((part) => (path += "/" + part));
       path = path.replace("/", "");
       if (path === this.$route.path) return;
       this.currentGroup = this.groups.filter(
-        group => parseInt(group.id) === parseInt(id)
+        (group) => parseInt(group.id) === parseInt(id)
       );
       this.currentGroup = this.currentGroup[0];
       this.$router.push(path);
     },
     //设置当前小组
     setCurrentGroup() {
-      this.groups.forEach(group => {
+      this.groups.forEach((group) => {
         if (parseInt(group.id) === parseInt(this.currentGroupId)) {
           this.currentGroup = group;
         }
@@ -225,8 +225,8 @@ export default {
           this.select(index, option);
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

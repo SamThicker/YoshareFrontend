@@ -5,16 +5,14 @@
       <a @click="selectTab('follow')" style="display: none">关注</a>
       <a @click="selectTab('notice')" style="display: none">消息</a>
     </div>
-<!--    <div class="search">-->
-<!--      <input class="search-input" placeholder="搜索" v-model="searchContent" />-->
-<!--      <div class="search-btn" @click="search()">-->
-<!--        <i class="el-icon-search"></i>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!--    <div class="search">-->
+    <!--      <input class="search-input" placeholder="搜索" v-model="searchContent" />-->
+    <!--      <div class="search-btn" @click="search()">-->
+    <!--        <i class="el-icon-search"></i>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <div class="login-register" v-if="!checkLogedIn()">
-      <div class="login-btn" @click="toLogin()">
-        登录/注册
-      </div>
+      <div class="login-btn" @click="toLogin()">登录/注册</div>
     </div>
     <div
       class="user"
@@ -68,13 +66,13 @@
 </template>
 
 <script>
-import "element-ui/lib/theme-chalk/index.css";
+//import "element-plus/dist/index.css";
 import { mapState } from "vuex";
 import store from "../store";
 export default {
   name: "HeaderMenu",
   watch: {
-    info: function(info) {
+    info: function (info) {
       let icon = info.icon;
       if (!icon) {
         icon = "http://" + window.location.host + "/static/icon/DEFAULT.png";
@@ -83,16 +81,16 @@ export default {
       }
       return icon;
     },
-    path: function(val) {
+    path: function (val) {
       if (val === "/") {
         this.$router.push("/group");
       }
       this.initialTab();
-    }
+    },
   },
   computed: {
     ...mapState({
-      icon: function(state) {
+      icon: function (state) {
         let icon = state.user.info.icon;
         if (!icon) {
           icon = "http://" + window.location.host + "/static/icon/DEFAULT.png";
@@ -101,39 +99,39 @@ export default {
         }
         return icon;
       },
-      account: state => state.user.account,
-      token: state => state.user.token,
-      info: state => state.user.info
+      account: (state) => state.user.account,
+      token: (state) => state.user.token,
+      info: (state) => state.user.info,
     }),
-    path: function() {
+    path: function () {
       return this.$route.path;
-    }
+    },
   },
   data() {
     return {
       show: false,
       size: 40,
-      searchContent: ""
+      searchContent: "",
     };
   },
   methods: {
     scrollListener() {
       this.show = false;
     },
-    logOut: function() {
+    logOut: function () {
       store.dispatch("LogOut");
       if (
         this.$router.currentRoute.matched.some(
-          record => record.meta.requireAuth
+          (record) => record.meta.requireAuth
         )
       ) {
         this.$router.push("/");
       }
     },
-    checkLogedIn: function() {
+    checkLogedIn: function () {
       return !!store.getters.account;
     },
-    toLogin: function() {
+    toLogin: function () {
       this.$router.push("/loginPage");
     },
     toWorkBench() {
@@ -171,12 +169,12 @@ export default {
         return;
       }
       this.$router.push("/search");
-    }
+    },
   },
   mounted() {
     document.addEventListener("scroll", this.scrollListener);
     this.initialTab();
-  }
+  },
 };
 </script>
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import request from "../../static/utils/request";
 
 export function addReadNoteLog(userId, noteId, noteType, groupId, title) {
@@ -8,15 +9,15 @@ export function addReadNoteLog(userId, noteId, noteType, groupId, title) {
       noteId: noteId,
       noteType: noteType,
       groupId: groupId,
-      title: title
-    }
+      title: title,
+    },
   });
 }
 
 export function queryReadNoteLog(userId, option) {
   return request({
     url: "/log/readNoteLog/" + userId + "/" + option,
-    method: "get"
+    method: "get",
   });
 }
 
@@ -26,7 +27,7 @@ export function queryReadNoteDetail(userId, date) {
     url: "/log/readNoteLogDetails/" + userId,
     method: "post",
     params: {
-      dateStr: date
-    }
+      dateStr: date,
+    },
   });
 }

@@ -26,7 +26,7 @@
         type="date"
         placeholder="2000-01-01"
         v-model="info.birthday"
-        style="width: 100%;"
+        style="width: 100%"
       ></el-date-picker>
     </el-form-item>
     <el-form-item label="地区">
@@ -62,18 +62,18 @@ export default {
     this.infoContainer = deepClone(this.$store.state.user.info);
   },
   watch: {
-    icon: function(icon) {
+    icon: function (icon) {
       this.options.src = icon;
     },
-    storeInfo: function() {
+    storeInfo: function () {
       this.infoContainer = deepClone(this.$store.state.user.info);
-    }
+    },
   },
   computed: {
-    info: function() {
+    info: function () {
       return this.infoContainer;
     },
-    icon: function() {
+    icon: function () {
       let icon = this.info.icon;
       if (!icon) {
         icon = "http://" + window.location.host + "/static/icon/DEFAULT.png";
@@ -82,17 +82,17 @@ export default {
       }
       return icon;
     },
-    select: function() {
+    select: function () {
       let locations = this.info.location.split("-");
       return {
         province: locations[0],
         city: locations[1],
-        area: locations[2]
+        area: locations[2],
       };
     },
-    storeInfo: function() {
+    storeInfo: function () {
       return this.$store.state.user.info;
-    }
+    },
   },
   data() {
     return {
@@ -106,14 +106,14 @@ export default {
         alt: "http://" + window.location.host + "/static/icon/DEFAULT.png",
         accept: "image/jpeg,image/png",
         serverUrl: "",
-        header: null
+        header: null,
       },
       funcs: {
         doUpload: this.uploadAvatar,
         uploadSuccess: this.uploadSuccess,
         uploadError: this.uploadError,
-        beforeUpload: this.beforeUpload
-      }
+        beforeUpload: this.beforeUpload,
+      },
     };
   },
   methods: {
@@ -127,16 +127,16 @@ export default {
         birthday: new Date(this.infoContainer.birthday),
         gender: this.infoContainer.gender,
         introduction: this.infoContainer.introduction,
-        location: this.infoContainer.location
+        location: this.infoContainer.location,
       };
       let _this = this;
       updateInfo(this.infoContainer.id, info)
-        .then(function(res) {
+        .then(function (res) {
           _this.$elementMessage(res.message, "success", 1500);
           _this.$store.dispatch("GetInfoByToken");
           Promise.resolve(res);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           _this.$elementMessage(err.message, "error", 1500);
           console.info("err:" + err);
           Promise.reject(err);
@@ -154,7 +154,7 @@ export default {
       this.infoContainer = deepClone(this.$store.state.user.info);
       this.update = false;
       let _this = this;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.update = true;
       }, 0);
     },
@@ -166,10 +166,10 @@ export default {
       let type = file.type.replace("image/", "");
       //获取上传到Minio的URL
       getAvatarUploadUrl(userId, type)
-        .then(function(res) {
+        .then(function (res) {
           let url = res.data;
           //直接把头像上传到Minio
-          uploadFile(url, file).then(function(res) {
+          uploadFile(url, file).then(function (res) {
             //如果上传成功，则更新信息
             _this.uploadSuccess(res);
             let userId = _this.infoContainer.id;
@@ -179,7 +179,7 @@ export default {
             );
           });
         })
-        .catch(function(err) {
+        .catch(function (err) {
           //失败则返回报错信息
           console.info("err:" + JSON.stringify(err));
           _this.uploadError(err);
@@ -189,15 +189,15 @@ export default {
       // this.$router.go(0);
       let _this = this;
       this.options.reload = true;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.options.reload = false;
       }, 50);
       // refreshAvatar(this.info.icon);
       refreshAvatarNew(this.icon).catch();
     },
     uploadError() {},
-    beforeUpload() {}
-  }
+    beforeUpload() {},
+  },
 };
 </script>
 

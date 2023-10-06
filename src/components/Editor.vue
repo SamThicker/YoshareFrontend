@@ -45,7 +45,7 @@ const toolbarOptions = [
   [{ font: [] }], // 字体种类
   [{ align: [] }], // 对齐方式
   ["clean"], // 清除文本格式
-  [/*"link",*/ "image", "video"] // 链接、图片、视频
+  [/*"link",*/ "image", "video"], // 链接、图片、视频
 ];
 
 import { quillEditor } from "vue-quill-editor";
@@ -60,43 +60,43 @@ export default {
   props: {
     /*编辑器的内容*/
     value: {
-      type: String
+      type: String,
     },
     /*图片大小*/
     maxSize: {
       type: Number,
-      default: 5000 //kb
+      default: 5000, //kb
     },
     containerHeight: Number,
-    enable: Boolean
+    enable: Boolean,
   },
 
   mounted() {
     console.info("afadf");
-    console.info(this.content)
-;    this.$refs.myQuillEditor.quill.enable(this.enable);
+    console.info(this.content);
+    this.$refs.myQuillEditor.quill.enable(this.enable);
     addQuillTitle();
   },
 
   components: {
-    quillEditor
+    quillEditor,
   },
   computed: {},
   watch: {
-    containerHeight: function(val) {
+    containerHeight: function (val) {
       document.querySelector(".ql-editor").style.height = val + "px";
     },
-    value: function(val) {
+    value: function (val) {
       this.content = val;
     },
-    enable: function(val) {
+    enable: function (val) {
       this.$refs.myQuillEditor.quill.enable(val);
       // this.$refs.myQuillEditor.quill.blur();
       // this.$nextTick(function() {
       //   this.$refs.myQuillEditor.quill.enable(val);
       //   this.$refs.myQuillEditor.quill.blur();
       // });
-    }
+    },
   },
   data() {
     return {
@@ -110,7 +110,7 @@ export default {
             container: toolbarOptions,
             // container: "#toolbar",
             handlers: {
-              image: function(value) {
+              image: function (value) {
                 if (value) {
                   // 触发input框选择图片文件
                   document.querySelector(".el-upload__input").click();
@@ -118,29 +118,29 @@ export default {
                   this.quill.format("image", false);
                 }
               },
-              link: function(value) {
+              link: function (value) {
                 if (value) {
                   let href = prompt("请输入url");
                   this.quill.format("link", href);
                 } else {
                   this.quill.format("link", false);
                 }
-              }
-            }
+              },
+            },
           },
           syntax: {
-            highlight: text => {
+            highlight: (text) => {
               return hljs.highlightAuto(text).value; // 这里就是代码高亮需要配置的地方
-            }
-          }
-        }
+            },
+          },
+        },
       },
       serverUrl: "/v1/blog/imgUpload", // 这里写你要上传的图片服务器地址
       header: {
         // token: sessionStorage.token
       }, // 有的图片服务器要求请求头需要有token
       imageList: [],
-      imageNum: 0
+      imageNum: 0,
     };
   },
 
@@ -183,7 +183,7 @@ export default {
         url = url.replace(url.match("\\?.*"), "");
         let image = {
           index: this.imageNum,
-          src: url
+          src: url,
         };
         this.imageList[this.imageNum] = image;
         this.imageNum++;
@@ -208,17 +208,17 @@ export default {
     doUpload(content) {
       let _this = this;
       getUploadUrl(content.file.name)
-        .then(function(res) {
-          uploadFile(res.data, content.file).then(function(res) {
+        .then(function (res) {
+          uploadFile(res.data, content.file).then(function (res) {
             _this.uploadSuccess(res);
           });
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.info("err:" + JSON.stringify(err));
           _this.uploadError(err);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -341,21 +341,23 @@ code {
   content: "等宽字体";
 }
 
-.ql-container{
+.ql-container {
   overflow-y: auto;
-  height: 8rem!important;
+  height: 8rem !important;
 }
 
 /*滚动条整体样式*/
-.ql-container ::-webkit-scrollbar{
-  width: 10px;/*竖向滚动条的宽度*/
-  height: 10px;/*横向滚动条的高度*/
+.ql-container ::-webkit-scrollbar {
+  width: 10px; /*竖向滚动条的宽度*/
+  height: 10px; /*横向滚动条的高度*/
 }
-.ql-container ::-webkit-scrollbar-thumb{/*滚动条里面的小方块*/
+.ql-container ::-webkit-scrollbar-thumb {
+  /*滚动条里面的小方块*/
   background: #666666;
   border-radius: 5px;
 }
-.ql-container ::-webkit-scrollbar-track{/*滚动条轨道的样式*/
+.ql-container ::-webkit-scrollbar-track {
+  /*滚动条轨道的样式*/
   background: #ccc;
   border-radius: 5px;
 }

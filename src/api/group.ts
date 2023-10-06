@@ -1,10 +1,11 @@
+// @ts-nocheck
 import request from "../../static/utils/request";
 
 export function createGroup(data, userId) {
   return request({
     url: "/group-service/group/" + userId + "/group",
     method: "put",
-    data: data
+    data: data,
   });
 }
 
@@ -12,21 +13,21 @@ export function updateGroupInfo(userId, group) {
   return request({
     url: "/group-service/group/" + userId + "/info",
     method: "patch",
-    data: group
+    data: group,
   });
 }
 
 export function getOwnGroupsByUserId(userId) {
   return request({
     url: "/group-service/group/" + userId + "/createdGroups",
-    method: "get"
+    method: "get",
   });
 }
 
 export function getAllGroupsByUserId(userId) {
   return request({
     url: "/group-service/group/" + userId + "/allGroups",
-    method: "get"
+    method: "get",
   });
 }
 
@@ -35,8 +36,8 @@ export function getAllGroupMember(userId, groupId) {
     url: "/group-service/group/" + userId + "/group/member",
     method: "get",
     params: {
-      groupId: groupId
-    }
+      groupId: groupId,
+    },
   });
 }
 
@@ -45,8 +46,8 @@ export function getAvatarUploadUrl(userId, groupId, type) {
     url: "/group-service/group/" + userId + "/" + groupId + "/avatarUploadUrl",
     method: "get",
     params: {
-      type: type
-    }
+      type: type,
+    },
   });
 }
 
@@ -55,8 +56,8 @@ export function getGroupJoinCode(userId, groupId) {
     url: "/group-service/group/" + userId + "/groupCode",
     method: "get",
     params: {
-      groupId: groupId
-    }
+      groupId: groupId,
+    },
   });
 }
 
@@ -66,8 +67,8 @@ export function joinGroupByCode(userId, groupId, groupJoinCode) {
     method: "put",
     params: {
       groupId: groupId,
-      groupJoinCode: groupJoinCode
-    }
+      groupJoinCode: groupJoinCode,
+    },
   });
 }
 
@@ -75,7 +76,7 @@ export function joinGroupByCode(userId, groupId, groupJoinCode) {
 export function quitGroup(groupId) {
   return request({
     url: "/group-service/group/" + groupId + "/member",
-    method: "delete"
+    method: "delete",
   });
 }
 
@@ -83,6 +84,6 @@ export function quitGroup(groupId) {
 export function removeMember(groupId, memberId) {
   return request({
     url: "/group-service/group/" + groupId + "/" + memberId + "/byAdmin",
-    method: "delete"
+    method: "delete",
   });
 }

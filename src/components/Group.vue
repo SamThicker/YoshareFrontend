@@ -91,42 +91,42 @@ export default {
       createBar: false,
       newGroup: {
         name: "",
-        introduction: ""
+        introduction: "",
       },
-      loading: false
+      loading: false,
     };
   },
   watch: {
     deep: true,
-    userOwnGroups: function(val) {
+    userOwnGroups: function (val) {
       this.ownGroups = val;
     },
-    userAllGroups: function(val) {
+    userAllGroups: function (val) {
       this.allGroups = val;
     },
-    userId: function() {}
+    userId: function () {},
   },
   mounted() {
     this.ownGroups = this.userOwnGroups;
     this.allGroups = this.userAllGroups;
   },
   computed: {
-    userId: function() {
+    userId: function () {
       return this.$store.state.user.info.id;
     },
-    userOwnGroups: function() {
+    userOwnGroups: function () {
       return this.$store.state.user.ownGroups;
     },
-    userAllGroups: function() {
+    userAllGroups: function () {
       return this.$store.state.user.allGroups;
-    }
+    },
   },
   methods: {
     refreshGroups() {
       let userId = this.$store.state.user.info.id;
       this.$store.dispatch("getAllGroups", userId);
     },
-    showCreateBar: function() {
+    showCreateBar: function () {
       if (this.ownGroups.length >= 3) {
         this.$elementMessage("每人只能创建3个小组", "error", 1500);
         this.createBar = false;
@@ -154,14 +154,14 @@ export default {
         createdBy: userId,
         name: this.newGroup.name,
         introduction: this.newGroup.introduction,
-        icon: this.$store.state.user.info.icon
+        icon: this.$store.state.user.info.icon,
       };
       this.createBar = false;
       createGroup(data, userId)
-        .then(function() {
+        .then(function () {
           _this.refreshGroups();
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.info("err:" + err);
         });
     },
@@ -178,10 +178,10 @@ export default {
           '<input id="join-code" style="display: block; width: 100%; height: 25px; outline: none;"></input>',
         "加入小组",
         {
-          dangerouslyUseHTMLString: true
+          dangerouslyUseHTMLString: true,
         }
       )
-        .then(function() {
+        .then(function () {
           let userId = _this.userId;
           let groupId = document.getElementById("join-groupId").value;
           let code = document.getElementById("join-code").value;
@@ -191,21 +191,21 @@ export default {
             return;
           }
           joinGroupByCode(userId, groupId, code)
-            .then(function() {
+            .then(function () {
               _this.$store.dispatch("getAllGroups", userId);
               _this.$elementMessage("操作成功", "success", 1500);
             })
-            .catch(err => {
+            .catch((err) => {
               let e = err.message;
               if (e == null) e = "出错辣~请稍后重试";
               _this.$elementMessage(e, "error", 1500);
             });
         })
-        .catch(function() {
+        .catch(function () {
           // _this.$elementMessage("请稍后重试", "error", 1500);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

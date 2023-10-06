@@ -13,7 +13,6 @@
     </div>
 
     <file-upload v-model="showUpload" :dest-classis="destClassis"></file-upload>
-
   </div>
 </template>
 
@@ -38,11 +37,11 @@ export default {
         star: this.itemStarClicked,
         unstar: this.itemUnstarClicked,
         share: this.itemShareClicked,
-        del: null
+        del: null,
       },
       classificationsCallBack: {
         click: null,
-        addRes: this.addFileResDialog
+        addRes: this.addFileResDialog,
       },
       refresh: false,
       resourceName: "",
@@ -53,45 +52,45 @@ export default {
       fileName: "",
       currentFile: {
         type: null,
-        content: null
+        content: null,
       },
       destClassis: null,
-      currentFileInfo: null
+      currentFileInfo: null,
     };
   },
   computed: {
-    userId: function() {
+    userId: function () {
       return this.$store.state.user.info.id;
-    }
+    },
   },
   watch: {
-    userId: function() {},
-    note: function() {}
+    userId: function () {},
+    note: function () {},
   },
   methods: {
     //资源预览项点击事件
-    fileClicked: function(resource) {
+    fileClicked: function (resource) {
       let _this = this;
       getFileInfo(resource.resourceRef)
-        .then(function(res) {
+        .then(function (res) {
           _this.currentFileInfo = res.data;
         })
         .catch();
     },
-    itemStarClicked: function() {},
-    itemUnstarClicked: function() {},
-    itemShareClicked: function() {},
+    itemStarClicked: function () {},
+    itemUnstarClicked: function () {},
+    itemShareClicked: function () {},
     itemDelClicked(resource) {
       let _this = this;
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           _this.deleteLoading = true;
           delResourceNote(_this.$store.state.user.info.id, resource)
-            .then(function() {
+            .then(function () {
               let index = _this.resources.indexOf(resource);
               if (index > -1) {
                 _this.resources.splice(index, 1);
@@ -107,7 +106,7 @@ export default {
           _this.deleteLoading = false;
         });
     },
-    addFileResDialog: function(classis) {
+    addFileResDialog: function (classis) {
       this.destClassis = classis;
       this.showUpload = true;
     },
@@ -134,11 +133,11 @@ export default {
     refreshData() {
       let _this = this;
       this.refresh = true;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.refresh = false;
       }, 50);
-    }
-  }
+    },
+  },
 };
 </script>
 

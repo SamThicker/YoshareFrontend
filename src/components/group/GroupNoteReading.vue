@@ -73,39 +73,39 @@ export default {
       fontSizeSlider: false,
       options: {
         markdownIt: {
-          linkify: true
+          linkify: true,
         },
         linkAttributes: {
           attrs: {
             target: "_blank",
-            rel: "noopener"
-          }
-        }
+            rel: "noopener",
+          },
+        },
       },
       markdownContent: "",
       currentContent: "",
       scrollAble: true,
       note: null,
-      noteLoading: false
+      noteLoading: false,
     };
   },
   computed: {
-    noteId: function() {
+    noteId: function () {
       return this.$route.params.noteId;
     },
-    groupId: function() {
+    groupId: function () {
       return this.$route.params.groupId;
-    }
+    },
   },
   watch: {
-    noteId: function() {
+    noteId: function () {
       if (!this.noteId) return;
       this.getNote();
     },
-    scrollToTop: function(bool) {
+    scrollToTop: function (bool) {
       if (bool) this.toTop();
     },
-    fontSize: function(size) {
+    fontSize: function (size) {
       let el = document.querySelector(".note-wrap");
       el.removeEventListener("scroll", this.scrollListener);
       this.scrollAble = false;
@@ -113,13 +113,13 @@ export default {
       this.scrollAble = true;
       el.addEventListener("scroll", this.scrollListener);
     },
-    note: function(val) {
+    note: function (val) {
       let contents = val.contents;
       this.currentContent = contents[contents.length - 1];
       this.markdownContent = this.currentContent.content;
-    }
+    },
   },
-  destroyed() {
+  unmounted() {
     document.removeEventListener("click", this.fontSizeSliderListener);
   },
   methods: {
@@ -144,7 +144,7 @@ export default {
         }
       }
       let _this = this;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.topValue = _this.scrollTop; //异步标记当前位置，用下次位置与这次的比较，判断滚动条在这期间的滚动状态
       }, 0);
     },
@@ -168,7 +168,7 @@ export default {
       if (!this.scrollAble) return;
       let _this = this;
       let wrap = document.querySelector(".note-wrap");
-      let timer = setInterval(function() {
+      let timer = setInterval(function () {
         let scrollTop = _this.getScrollTop();
         let speed = Math.floor(-scrollTop / 5);
         if (scrollTop === 0) {
@@ -192,13 +192,13 @@ export default {
       this.noteLoading = true;
       let _this = this;
       getGroupNote(_this.groupId, _this.noteId)
-        .then(function(res) {
+        .then(function (res) {
           _this.note = res.data;
           _this.noteLoading = false;
           //设置定时器
           _this.timer = setTimeout(_this.addMemberReadRecord, 1000 * 30);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.info("err:" + err);
           _this.$elementMessage("获取笔记失败", "error", 1500);
           _this.noteLoading = false;
@@ -220,8 +220,8 @@ export default {
       addReadNoteLog(userId, this.noteId, noteType, groupId, title)
         .then()
         .catch();
-    }
-  }
+    },
+  },
 };
 </script>
 

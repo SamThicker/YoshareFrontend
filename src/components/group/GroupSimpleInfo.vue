@@ -7,18 +7,14 @@
       <el-form-item label="小组ID">{{
         currentGroupInfo ? currentGroupInfo.id : "ID"
       }}</el-form-item>
-      <el-form-item label="创建时间">{{
-        currentGroupInfo ? currentGroupInfo.createdTime : new Date()
-      }}
+      <el-form-item label="创建时间"
+        >{{ currentGroupInfo ? currentGroupInfo.createdTime : new Date() }}
       </el-form-item>
       <el-form-item label="小组名">
         <el-input v-model="groupName"></el-input>
       </el-form-item>
       <el-form-item label="简介">
-        <el-input
-          type="textarea"
-          v-model="groupIntroduction"
-        ></el-input>
+        <el-input type="textarea" v-model="groupIntroduction"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="updateInfo()">保存</el-button>
@@ -53,56 +49,56 @@ export default {
         accept: "image/jpeg,image/png",
         serverUrl: "",
         header: null,
-        reload: false
+        reload: false,
       },
       funcs: {
         doUpload: this.uploadAvatar,
         uploadSuccess: this.uploadSuccess,
         uploadError: this.uploadError,
-        beforeUpload: this.beforeUpload
+        beforeUpload: this.beforeUpload,
       },
       currentGroupInfo: null,
       groupName: "",
-      groupIntroduction: ""
+      groupIntroduction: "",
     };
   },
   watch: {
     deep: true,
-    path: function() {},
-    groups: function() {
+    path: function () {},
+    groups: function () {
       this.setCurrentGroup();
     },
-    currentGroupId: function() {
+    currentGroupId: function () {
       this.setCurrentGroup();
     },
-    currentGroupInfo: function(info) {
+    currentGroupInfo: function (info) {
       this.groupName = info.name;
       this.groupIntroduction = info.introduction;
       this.options.src = this.icon;
-    }
+    },
   },
   computed: {
-    path: function() {
+    path: function () {
       return this.$route.params.routerId;
     },
-    currentGroupId: function() {
+    currentGroupId: function () {
       return this.$route.params.groupId;
     },
-    icon: function() {
+    icon: function () {
       let icon = this.currentGroupInfo.icon;
       if (icon) {
         return "http://" + window.location.host + icon;
       }
       return "http://" + window.location.host + "/static/icon/DEFAULT.png";
     },
-    groups: function() {
+    groups: function () {
       return this.$store.state.user.allGroups;
-    }
+    },
   },
   methods: {
-    setCurrentGroup: function() {
+    setCurrentGroup: function () {
       let _this = this;
-      let currentGroup = this.groups.filter(group => {
+      let currentGroup = this.groups.filter((group) => {
         return parseInt(group.id) === parseInt(_this.currentGroupId);
       });
       this.currentGroupInfo = deepClone(currentGroup[0]);
@@ -115,44 +111,44 @@ export default {
       let type = file.type.replace("image/", "");
       let groupId = this.currentGroupId;
       getAvatarUploadUrl(userId, groupId, type)
-        .then(function(res) {
+        .then(function (res) {
           let url = res.data;
-          uploadFile(url, file).then(function(res) {
+          uploadFile(url, file).then(function (res) {
             _this.uploadSuccess(res);
           });
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.info("err:" + JSON.stringify(err));
           _this.uploadError(err);
         });
     },
-    uploadSuccess: function() {
+    uploadSuccess: function () {
       this.$store.dispatch("getAllGroups", this.$store.state.user.info.id);
       refreshAvatarNew(this.currentGroupInfo.icon).catch();
       this.options.reload = true;
       this.options.reload = false;
     },
-    uploadError: function() {},
-    beforeUpload: function() {},
+    uploadError: function () {},
+    beforeUpload: function () {},
     //更新小组信息
-    updateInfo: function() {
+    updateInfo: function () {
       let _this = this;
       let group = {
         id: this.currentGroupId,
         name: this.groupName,
-        introduction: this.groupIntroduction
+        introduction: this.groupIntroduction,
       };
       let userId = this.$store.state.user.info.id;
       updateGroupInfo(userId, group)
-        .then(function() {
+        .then(function () {
           _this.$store.dispatch("getAllGroups", userId);
           _this.$elementMessage("操作成功", "success", 1500);
         })
-        .catch(err => {
+        .catch((err) => {
           console.info("err:" + err);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

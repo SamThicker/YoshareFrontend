@@ -37,14 +37,14 @@ export default {
   name: "IntroductionPanel",
   data() {
     return {
-      introduction_active: false
+      introduction_active: false,
     };
   },
   methods: {
     changeActiveStatus() {
       this.introduction_active = !this.introduction_active;
-    }
-  }
+    },
+  },
 };
 </script>
 

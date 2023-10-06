@@ -58,9 +58,9 @@ export default {
   components: { GroupResourcePanel },
   mounted() {},
   computed: {
-    groupId: function() {
+    groupId: function () {
       return this.$route.params.groupId;
-    }
+    },
   },
   data() {
     return {
@@ -70,12 +70,12 @@ export default {
         star: this.itemStar,
         unstar: this.itemUnstar,
         share: this.itemShare,
-        del: null
+        del: null,
       },
       classificationsCallBack: {
         click: this.classisClick,
         more: this.classisEdit,
-        addRes: this.classisAddRes
+        addRes: this.classisAddRes,
       },
       refresh: false,
       resourceName: "",
@@ -85,7 +85,7 @@ export default {
       iframeUrl: "",
       currentClassis: null,
       destClassis: null,
-      showMenu: false
+      showMenu: false,
     };
   },
   methods: {
@@ -103,7 +103,7 @@ export default {
     newTab() {
       window.open(this.iframeUrl, "_blank");
     },
-    addFavoriteWebPageDialog: function() {
+    addFavoriteWebPageDialog: function () {
       document.addEventListener("click", this.clickListener);
     },
     addFavoriteWebPage() {
@@ -116,10 +116,10 @@ export default {
         this.resourceUrl,
         _this.destClassis.id
       )
-        .then(function() {
+        .then(function () {
           _this.refreshData();
         })
-        .catch(err => {
+        .catch((err) => {
           console.info("err:" + err);
         });
     },
@@ -134,21 +134,21 @@ export default {
       let _this = this;
       let webId = resource.resourceRef;
       getGroupFavPage(this.groupId, webId)
-        .then(function(res) {
+        .then(function (res) {
           _this.iframeUrl = res.data.url;
         })
-        .catch(err => {
+        .catch((err) => {
           console.info("err:" + err.message);
         });
     },
     refreshData() {
       let _this = this;
       this.refresh = true;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.refresh = false;
       }, 50);
-    }
-  }
+    },
+  },
 };
 </script>
 

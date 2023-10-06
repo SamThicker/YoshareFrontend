@@ -1,3 +1,4 @@
+// @ts-nocheck
 // import corsRequest from "../../static/utils/corsRequest";
 import request from "../../static/utils/request";
 
@@ -12,7 +13,7 @@ export function tryUpload(formData, id, option) {
   return request({
     url: url,
     data: formData,
-    method: "put"
+    method: "put",
   });
 }
 
@@ -27,7 +28,7 @@ export function readyForUpload(formData, id, option) {
   return request({
     url: url,
     method: "put",
-    data: formData
+    data: formData,
   });
 }
 
@@ -44,7 +45,7 @@ export function doUpload(formData, id, option) {
     data: formData,
     method: "post",
     headers: {
-      "content-type": "application/x-www-form-urlencoded"
-    }
+      "content-type": "application/x-www-form-urlencoded",
+    },
   });
 }

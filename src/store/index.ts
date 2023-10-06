@@ -1,17 +1,13 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import { createStore } from "vuex";
 import user from "./modules/user";
 import globalEnv from "./modules/globalEnv";
 import getters from "./getters";
 
-Vue.use(Vuex);
-const store = new Vuex.Store({
+export default createStore({
   modules: {
     user: user,
-    globalEnv: globalEnv
+    globalEnv: globalEnv,
   },
   getters: getters,
-  strict: true
+  strict: true,
 });
-
-export default store;

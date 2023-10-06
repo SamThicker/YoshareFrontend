@@ -35,45 +35,46 @@ export default {
       accept: String,
       serverUrl: String,
       header: Object,
-      reload: Boolean
+      reload: Boolean,
     },
     funcs: {
       doUpload: Function,
       uploadSuccess: Function,
       uploadError: Function,
-      beforeUpload: Function
-    }
+      beforeUpload: Function,
+    },
   },
   data() {
     return {
-      defaultAvatar: "http://" + window.location.host + "/static/groupAvatar/DEFAULT.png"
+      defaultAvatar:
+        "http://" + window.location.host + "/static/groupAvatar/DEFAULT.png",
     };
   },
   mounted() {
     this.setSize(this.options.size);
   },
   watch: {
-    isReload: function(bool) {
+    isReload: function (bool) {
       if (bool) this.reload();
     },
-    size: function(val) {
+    size: function (val) {
       this.setSize(val);
     },
-    avatarReload: function(bool) {
+    avatarReload: function (bool) {
       if (bool) {
         this.reload();
       }
     },
-    icon: function() {},
-    deep: true
+    icon: function () {},
+    deep: true,
   },
   computed: {
-    isReload: function() {
+    isReload: function () {
       return this.options.reload;
     },
-    avatarReload: function() {
+    avatarReload: function () {
       return this.options.reload;
-    }
+    },
     // icon: function() {
     //   // return this.options.src;
     // }
@@ -89,8 +90,8 @@ export default {
       } else {
         el.style.height = el.style.width = "40px";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

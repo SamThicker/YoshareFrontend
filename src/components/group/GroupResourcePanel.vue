@@ -17,7 +17,7 @@
                 unNameable: classification.unNameable,
                 active: currentClassification.id
                   ? classification.id === currentClassification.id
-                  : false
+                  : false,
               }"
               @click.stop="selectClassis(classification)"
             >
@@ -73,33 +73,33 @@
                 <div class="preview-list-item-header">
                   <span class="preview-item-title">{{ resource.title }}</span>
                   <span class="preview-item-menu">
-<!--                    <i-->
-<!--                      class="el-icon-star-on preview-item-btn"-->
-<!--                      v-show="false"-->
-<!--                      style="color: yellow; font-size: 23px"-->
-<!--                      @click.stop="-->
-<!--                        previewItemCallback.unstar-->
-<!--                          ? previewItemCallback.unstar(resource)-->
-<!--                          : null-->
-<!--                      "-->
-<!--                    ></i>-->
-<!--                    <i-->
-<!--                      class="el-icon-star-off preview-item-btn"-->
-<!--                      v-show="true"-->
-<!--                      @click.stop="-->
-<!--                        previewItemCallback.star-->
-<!--                          ? previewItemCallback.star(resource)-->
-<!--                          : null-->
-<!--                      "-->
-<!--                    ></i>-->
-<!--                    <i-->
-<!--                      class="el-icon-share preview-item-btn"-->
-<!--                      @click.stop="-->
-<!--                        previewItemCallback.share-->
-<!--                          ? previewItemCallback.share(resource)-->
-<!--                          : null-->
-<!--                      "-->
-<!--                    ></i>-->
+                    <!--                    <i-->
+                    <!--                      class="el-icon-star-on preview-item-btn"-->
+                    <!--                      v-show="false"-->
+                    <!--                      style="color: yellow; font-size: 23px"-->
+                    <!--                      @click.stop="-->
+                    <!--                        previewItemCallback.unstar-->
+                    <!--                          ? previewItemCallback.unstar(resource)-->
+                    <!--                          : null-->
+                    <!--                      "-->
+                    <!--                    ></i>-->
+                    <!--                    <i-->
+                    <!--                      class="el-icon-star-off preview-item-btn"-->
+                    <!--                      v-show="true"-->
+                    <!--                      @click.stop="-->
+                    <!--                        previewItemCallback.star-->
+                    <!--                          ? previewItemCallback.star(resource)-->
+                    <!--                          : null-->
+                    <!--                      "-->
+                    <!--                    ></i>-->
+                    <!--                    <i-->
+                    <!--                      class="el-icon-share preview-item-btn"-->
+                    <!--                      @click.stop="-->
+                    <!--                        previewItemCallback.share-->
+                    <!--                          ? previewItemCallback.share(resource)-->
+                    <!--                          : null-->
+                    <!--                      "-->
+                    <!--                    ></i>-->
                     <i
                       class="el-icon-delete preview-item-btn"
                       @click.stop="
@@ -134,7 +134,7 @@ import {
   addGroupClassification,
   deleteGroupClassification,
   getGroupClassification,
-  updateGroupClassification
+  updateGroupClassification,
 } from "../../api/resource";
 import { delResource, getGroupResources } from "../../api/groupResource";
 
@@ -147,14 +147,14 @@ export default {
       star: Function,
       unstar: Function,
       del: Function,
-      share: Function
+      share: Function,
     },
     classificationsCallback: {
       click: Function,
       more: Function,
-      addRes: Function
+      addRes: Function,
     },
-    refresh: Boolean
+    refresh: Boolean,
   },
   mounted() {
     this.init();
@@ -173,8 +173,8 @@ export default {
           description: "测试",
           title: "test",
           datetime: "2020-03-28 16:34:44",
-          resourceRef: "5e7f7ca3d7b5f522aa998b60"
-        }
+          resourceRef: "5e7f7ca3d7b5f522aa998b60",
+        },
       ],
       resources: [],
       classifications: [],
@@ -185,19 +185,19 @@ export default {
           icon: "el-icon-files",
           classificationName: "全部",
           // unEditable: true,
-          unNameable: true
+          unNameable: true,
         },
         {
           id: "-2",
           icon: "el-icon-user",
           classificationName: "个人",
-          unEditable: true
+          unEditable: true,
         },
         {
           id: "-3",
           icon: "el-icon-share",
           classificationName: "共享",
-          unEditable: true
+          unEditable: true,
         },
         // {
         //   id: "-4",
@@ -206,57 +206,57 @@ export default {
         //   unEditable: true
         // }
       ],
-      currentClassification: ""
+      currentClassification: "",
     };
   },
   computed: {
-    userId: function() {
+    userId: function () {
       return this.$store.state.user.info.id;
     },
-    groupId: function() {
+    groupId: function () {
       return this.$route.params.groupId;
-    }
+    },
   },
   watch: {
-    refresh: function(bool) {
+    refresh: function (bool) {
       if (!bool) return;
       this.getGroupResource();
       this.getClassifications();
     },
-    resourceData: function() {},
-    ownClassifications: function(val) {
+    resourceData: function () {},
+    ownClassifications: function (val) {
       this.classifications.length = 0;
       this.classifications.push(...this.basicClassifications);
       this.classifications.push(...val);
     },
-    groupId: function(id) {
+    groupId: function (id) {
       if (id) {
         this.getGroupResource();
         this.getClassifications();
       }
     },
-    currentClassification: function() {
+    currentClassification: function () {
       this.getGroupResource();
     },
-    deep: true
+    deep: true,
   },
   methods: {
-    init: function() {
+    init: function () {
       this.classifications.push(...this.basicClassifications);
       this.currentClassification = this.classifications[0];
     },
-    getGroupResource: function() {
+    getGroupResource: function () {
       let _this = this;
       if (!this.groupId) return;
       let type = this.type ? this.type : "all";
       getGroupResources(_this.groupId, type, this.currentClassification.id)
-        .then(function(res) {
+        .then(function (res) {
           _this.resources = res.data;
-          _this.resources.forEach(res => {
+          _this.resources.forEach((res) => {
             res.datetime = formatDateTime(res.dateTime);
           });
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.info("err:" + err);
         });
     },
@@ -264,10 +264,10 @@ export default {
       let _this = this;
       let type = this.type ? this.type : "all";
       getGroupClassification(this.groupId, type)
-        .then(function(res) {
+        .then(function (res) {
           _this.ownClassifications = res.data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.info("出错辣，请稍后再试" + err);
         });
     },
@@ -277,7 +277,7 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-        inputErrorMessage: "格式不正确"
+        inputErrorMessage: "格式不正确",
       })
         .then(({ value }) => {
           if (!value || "" === value) {
@@ -287,11 +287,11 @@ export default {
           let name = value;
           let type = _this.type ? _this.type : "NOTE";
           addGroupClassification(this.groupId, type, name)
-            .then(function() {
+            .then(function () {
               _this.getClassifications();
               _this.$elementMessage("操作成功", "success", 1000);
             })
-            .catch(err => {
+            .catch((err) => {
               _this.$elementMessage("出错辣，" + err.message, "error", 1000);
             });
         })
@@ -312,27 +312,27 @@ export default {
         inputValue: classis.classificationName,
         distinguishCancelAndClose: true,
         // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-        inputErrorMessage: "格式不正确"
+        inputErrorMessage: "格式不正确",
       })
         .then(({ value }) => {
           classis.classificationName = value;
           _this.updateClassis(classis);
         })
-        .catch(action => {
+        .catch((action) => {
           if (action === "close") return;
           _this
             .$confirm("此操作将永久删除该分类, 是否继续?", "提示", {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
-              type: "warning"
+              type: "warning",
             })
-            .then(function() {
+            .then(function () {
               _this.deleteClassis(classis);
             })
             .catch(() => {
               _this.$message({
                 type: "info",
-                message: "已取消"
+                message: "已取消",
               });
             });
         });
@@ -341,11 +341,11 @@ export default {
     deleteClassis(classis) {
       let _this = this;
       deleteGroupClassification(this.groupId, classis.type, classis.id)
-        .then(function() {
+        .then(function () {
           _this.getClassifications();
           _this.$elementMessage("操作成功", "success", 1000);
         })
-        .catch(err => {
+        .catch((err) => {
           _this.$elementMessage(err.message, "error", 1000);
         });
     },
@@ -358,11 +358,11 @@ export default {
         classis.id,
         classis.classificationName
       )
-        .then(function() {
+        .then(function () {
           _this.$elementMessage("操作成功", "success", 1000);
           _this.getClassifications();
         })
-        .catch(err => {
+        .catch((err) => {
           _this.$elementMessage(
             "操作失败，请重试(" + err.message + ")",
             "error",
@@ -383,7 +383,7 @@ export default {
       this.$confirm("此操作将永久删除该资源, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           _this.deleteLoading = true;
@@ -395,10 +395,10 @@ export default {
             _this.currentClassification.id,
             resource
           )
-            .then(function() {
+            .then(function () {
               let res = resource;
               let index = _this.resources.findIndex(
-                resource => resource.id === res.id
+                (resource) => resource.id === res.id
               );
               if (index > -1) {
                 _this.resources.splice(index, 1);
@@ -413,8 +413,8 @@ export default {
         .catch(() => {
           _this.deleteLoading = false;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

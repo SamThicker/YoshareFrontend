@@ -105,7 +105,12 @@
           <el-input v-model="currentTag"></el-input>
         </div>
         <div
-          style="text-align: left; margin-top: 15px; color:#a2adc1; font-size: 13px"
+          style="
+            text-align: left;
+            margin-top: 15px;
+            color: #a2adc1;
+            font-size: 13px;
+          "
         >
           "标记"是指在时光机的时间线上的文字，可用于方便的检索笔记的历史记录。
         </div>
@@ -125,8 +130,8 @@ import { getGroupNote, saveGroupNote } from "../api/groupNote";
 export default {
   name: "WorkBench",
   watch: {
-    content: function() {
-      console.info("c:"+this.content)
+    content: function () {
+      console.info("c:" + this.content);
       // this.content = "";
       //  // this.content = val.replace(/<script>/gi, this.stringEncode("<script>"));
       //  this.content = val.replace(/<script>/gi, "哈哈");
@@ -143,25 +148,25 @@ export default {
       //  this.content = val.replace("'","&apos;")
       //  if (this.isMavon) this.content = val.replace("<img>","\\" +"&lt;img>")
     },
-    $route: function() {
+    $route: function () {
       this.getParams();
       this.getNote();
     },
-    currentNote: function() {
+    currentNote: function () {
       this.setData();
-    }
+    },
   },
   components: { TimeLine },
   mounted() {
     let _this = this;
-    this.timeLineCallback = function(id) {
+    this.timeLineCallback = function (id) {
       _this.timeLineItemClick(id);
     };
     this.getParams();
     this.getNote();
     this.setData();
   },
-  destroyed() {
+  unmounted() {
     window.onresize = null;
     document.removeEventListener("click", this.clickListener);
   },
@@ -177,7 +182,7 @@ export default {
       endItem: {
         index: this.getCurrentTime(),
         content: "正在编辑...",
-        id: null
+        id: null,
       },
       settingBar: false,
       timeline: true,
@@ -194,13 +199,13 @@ export default {
       onSaveLoading: false,
       currentVersionId: "",
       currentTag: "",
-      currentEditor: ""
+      currentEditor: "",
     };
   },
   computed: {
-    currentTime: function() {
+    currentTime: function () {
       return this.getCurrentTime();
-    }
+    },
   },
   methods: {
     stringEncode(str) {
@@ -270,24 +275,24 @@ export default {
       console.info(groupId);
       if (groupId) {
         getGroupNote(groupId, this.noteId)
-          .then(function(res) {
+          .then(function (res) {
             _this.currentNote = res.data;
-            _this.currentNote.contents.forEach(content => {
+            _this.currentNote.contents.forEach((content) => {
               content.time = formatDateTime(content.time);
             });
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.info("err:" + err);
           });
       } else {
         getNoteForSelf(this.userId, this.noteId)
-          .then(function(res) {
+          .then(function (res) {
             _this.currentNote = res.data;
-            _this.currentNote.contents.forEach(content => {
+            _this.currentNote.contents.forEach((content) => {
               content.time = formatDateTime(content.time);
             });
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.info("err:" + err);
           });
       }
@@ -306,7 +311,7 @@ export default {
         let item = {
           id: content.id,
           index: content.time,
-          content: content.tag
+          content: content.tag,
         };
         items.push(item);
       }
@@ -318,13 +323,13 @@ export default {
       let content = {
         content: this.content,
         editor: this.isMavon ? "MAVON" : "QUILL",
-        tag: this.currentTag
+        tag: this.currentTag,
       };
       let note = {
         id: this.noteId,
         title: this.title,
         contents: [content],
-        by: this.userId
+        by: this.userId,
       };
       let data = {};
       data.note = note;
@@ -333,7 +338,7 @@ export default {
       this.onSaveLoading = true;
       if (!this.groupId) {
         saveNote(this.userId, data)
-          .then(function(res) {
+          .then(function (res) {
             _this.$elementMessage("保存成功", "success", 1000);
             _this.onSaveLoading = false;
             if (!_this.$route.params.noteId) {
@@ -343,31 +348,31 @@ export default {
             _this.getNote();
             _this.setData();
           })
-          .catch(function(err) {
+          .catch(function (err) {
             _this.$elementMessage("操作失败", "error", 1000);
             _this.onSaveLoading = false;
             console.info("er:" + err);
           });
       } else {
         saveGroupNote(this.groupId, data)
-          .then(function(res) {
+          .then(function (res) {
             _this.$elementMessage("保存成功", "success", 1000);
             _this.onSaveLoading = false;
             if (!_this.$route.params.noteId) {
               let id = res.data.id;
               let path = "/workBench/" + _this.userId + "/" + id;
               let query = {
-                groupId: _this.groupId
+                groupId: _this.groupId,
               };
               _this.$router.replace({
                 path: path,
-                query: query
+                query: query,
               });
             }
             _this.getNote();
             _this.setData();
           })
-          .catch(function(err) {
+          .catch(function (err) {
             _this.$elementMessage("操作失败", "error", 1000);
             _this.onSaveLoading = false;
             console.info("er:" + err);
@@ -405,7 +410,7 @@ export default {
           this.editing = false;
         }
         let contents = this.currentNote.contents.filter(
-          content => content.id === id
+          (content) => content.id === id
         );
         this.isMavon = contents[0].editor === "MAVON";
         this.content = contents[0].content;
@@ -421,8 +426,8 @@ export default {
       this.currentVersionId = "";
       this.editing = true;
       this.markdownEditable = true;
-    }
-  }
+    },
+  },
 };
 </script>
 

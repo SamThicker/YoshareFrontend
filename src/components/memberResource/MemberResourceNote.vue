@@ -31,36 +31,36 @@ export default {
         star: this.itemStarClicked,
         unstar: this.itemUnstarClicked,
         share: this.itemShareClicked,
-        del: null
+        del: null,
       },
       classificationsCallBack: {
         click: null,
-        addRes: this.addNote
+        addRes: this.addNote,
       },
-      refresh: false
+      refresh: false,
     };
   },
   computed: {
-    userId: function() {
+    userId: function () {
       return this.$store.state.user.info.id;
-    }
+    },
   },
   watch: {
-    userId: function() {},
-    note: function() {}
+    userId: function () {},
+    note: function () {},
   },
   methods: {
     //资源预览项点击事件
-    noteItemClicked: function(resource) {
+    noteItemClicked: function (resource) {
       this.toTop = true;
       let redirection = "/resource/note/" + resource.resourceRef;
       if (redirection === this.$route.path) return;
       this.$router.push(redirection);
     },
-    itemStarClicked: function() {},
-    itemUnstarClicked: function() {},
-    itemShareClicked: function() {},
-    addNote: function(classis) {
+    itemStarClicked: function () {},
+    itemUnstarClicked: function () {},
+    itemShareClicked: function () {},
+    addNote: function (classis) {
       let classId = classis.id;
       let path = "/workBench/" + this.userId;
       let query = {};
@@ -68,8 +68,8 @@ export default {
         query.classId = classId;
       }
       this.$router.push({ path: path, query: query });
-    }
-  }
+    },
+  },
 };
 </script>
 

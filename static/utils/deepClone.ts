@@ -1,3 +1,4 @@
+// @ts-nocheck
 // 定义一个深拷贝函数  接收目标target参数
 export function deepClone(target) {
   // 定义一个变量

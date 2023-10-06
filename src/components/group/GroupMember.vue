@@ -71,7 +71,7 @@
       :close-on-click-modal="false"
       class="join-group"
       title="操作指引"
-      :visible.sync="dialogTableVisible"
+      v-model:visible="dialogTableVisible"
     >
       <div class="add-member-instruction">{{ instruction }}</div>
       <label class="join-label">小组ID</label>
@@ -87,7 +87,7 @@ import {
   getAllGroupMember,
   getGroupJoinCode,
   quitGroup,
-  removeMember
+  removeMember,
 } from "../../api/group";
 import { deepClone } from "../../../static/utils/deepClone";
 
@@ -106,31 +106,31 @@ export default {
       instruction:
         '       请把验证码与小组ID分享给您的小伙伴，您的小伙伴只需在"小组"内容面板下点击' +
         '"加入小组"的小卡片，然后输入验证码和小组ID，即可加入小组。 验证码有效期10分钟。',
-      currentGroupInfo: null
+      currentGroupInfo: null,
     };
   },
   watch: {
-    groupId: function() {
+    groupId: function () {
       this.getGroupMembers();
       this.setCurrentGroupInfo();
-    }
+    },
   },
   computed: {
-    userInfo: function() {
+    userInfo: function () {
       return this.$store.state.user.info;
     },
-    userId: function() {
+    userId: function () {
       return this.$store.state.user.info.id;
     },
-    groupId: function() {
+    groupId: function () {
       return this.$route.params.groupId;
     },
-    getIcon: function(icon) {
-      return "http://"+ window.location.host +"/" + icon;
+    getIcon: function (icon) {
+      return "http://" + window.location.host + "/" + icon;
     },
-    groups: function() {
+    groups: function () {
       return this.$store.state.user.allGroups;
-    }
+    },
   },
   methods: {
     search(val) {
@@ -147,7 +147,7 @@ export default {
     },
     setCurrentGroupInfo() {
       let _this = this;
-      let currentGroup = this.groups.filter(group => {
+      let currentGroup = this.groups.filter((group) => {
         return parseInt(group.id) === parseInt(_this.groupId);
       });
       this.currentGroupInfo = deepClone(currentGroup[0]);
@@ -155,22 +155,22 @@ export default {
     getGroupMembers() {
       let _this = this;
       getAllGroupMember(this.userId, this.groupId)
-        .then(function(res) {
+        .then(function (res) {
           _this.groupMembers = res.data;
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.info("err:" + err.data.message);
         });
     },
     addMember() {
       let _this = this;
       getGroupJoinCode(this.userId, this.groupId)
-        .then(function(res) {
+        .then(function (res) {
           let code = res.data;
           _this.code = code;
           _this.dialogTableVisible = true;
         })
-        .catch(err => {
+        .catch((err) => {
           console.info("err:" + err);
         });
     },
@@ -179,36 +179,36 @@ export default {
       this.$confirm("确定要退出小组吗?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
-        .then(function() {
+        .then(function () {
           quitGroup(_this.groupId)
-            .then(function() {
+            .then(function () {
               _this.$store.dispatch("getAllGroups", _this.userId);
               _this.$elementMessage("操作成功", "success", 800);
               _this.$router.push("/");
             })
-            .catch(err => console.info(err));
+            .catch((err) => console.info(err));
         })
-        .catch(err => console.info(err));
+        .catch((err) => console.info(err));
     },
     removeMember(memberId) {
       let _this = this;
       this.$confirm("确定要删除该成员吗?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
-        .then(function() {
+        .then(function () {
           removeMember(_this.groupId, memberId)
-            .then(function() {
+            .then(function () {
               _this.getGroupMembers();
             })
-            .catch(err => console.info(err));
+            .catch((err) => console.info(err));
         })
-        .catch(err => console.info(err));
-    }
-  }
+        .catch((err) => console.info(err));
+    },
+  },
 };
 </script>
 

@@ -1,9 +1,10 @@
+// @ts-nocheck
 export var Auth = {
   vars: {
     lowin: Element,
     lowin_brand: Element,
     lowin_wrapper: Element,
-    lowin_login: Element,
+    lowin_login: HTMLElement,
     lowin_wrapper_height: 0,
     login_back_link: Element,
     forgot_link: Element,

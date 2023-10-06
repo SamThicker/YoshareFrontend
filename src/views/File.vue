@@ -30,26 +30,26 @@ export default {
       let file = document.querySelector("#file").files[0];
       let url = "";
       getUploadUrl(file.name)
-        .then(function(res) {
+        .then(function (res) {
           url = res.data;
           let headers = {
-            "Content-Type": file.type
+            "Content-Type": file.type,
           };
           uploadFile(url, file, headers)
-            .then(function(res) {
+            .then(function (res) {
               console.info(res);
             })
-            .catch(function(err) {
+            .catch(function (err) {
               console.info(err);
             });
           console.info(res);
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.info(err.message);
           return Promise.reject(err);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

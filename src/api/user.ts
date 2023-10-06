@@ -1,3 +1,4 @@
+// @ts-nocheck
 import request from "../../static/utils/request";
 import rawRequest from "../../static/utils/rawRequest";
 
@@ -7,22 +8,22 @@ export function login(account, password) {
     method: "post",
     data: {
       account: account,
-      password: password
-    }
+      password: password,
+    },
   });
 }
 
 export function getInfo(param, option) {
   return request({
     url: "/member-service/member/" + param + "/info/" + option,
-    method: "get"
+    method: "get",
   });
 }
 
 export function getInfoByToken() {
   return request({
     url: "/gateway/security/info",
-    method: "get"
+    method: "get",
   });
 }
 
@@ -32,8 +33,8 @@ export function register(registerInfo) {
     method: "post",
     data: registerInfo,
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
 }
 
@@ -41,7 +42,7 @@ export function updateInfo(id, info) {
   return request({
     url: "/member-service/member/" + id + "/info",
     method: "put",
-    data: info
+    data: info,
   });
 }
 
@@ -49,7 +50,7 @@ export function getVerificationCode(mail) {
   return request({
     url: "/member-service/member/mailVerificationCode",
     method: "post",
-    params: { mail: mail }
+    params: { mail: mail },
   });
 }
 
@@ -58,8 +59,8 @@ export function getAvatarUploadUrl(userId, type) {
     url: "/member-service/member/" + userId + "/avatarUploadUrl",
     method: "get",
     params: {
-      type: type
-    }
+      type: type,
+    },
   });
 }
 
@@ -68,8 +69,8 @@ export function refreshAvatar(url) {
     url: url,
     method: "get",
     headers: {
-      "Cache-Control": "no-cache"
-    }
+      "Cache-Control": "no-cache",
+    },
   });
 }
 
@@ -78,7 +79,7 @@ export function refreshAvatarNew(url) {
     url: url,
     method: "get",
     headers: {
-      "Cache-Control": "no-cache"
-    }
+      "Cache-Control": "no-cache",
+    },
   });
 }

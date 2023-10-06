@@ -21,9 +21,9 @@ export default {
   components: { HeaderBarPro, MemberResourceHeaderMenu },
   data() {
     return {
-      switch_able: true
+      switch_able: true,
     };
-  }
+  },
 };
 </script>
 

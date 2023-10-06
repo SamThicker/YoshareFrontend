@@ -1,3 +1,4 @@
+// @ts-nocheck
 const titleConfig = {
   "ql-bold": "加粗",
   "ql-color": "颜色",
@@ -39,6 +40,7 @@ export function addQuillTitle() {
     }
   });
   aSelect.forEach(function(item) {
-    item.parentNode.title = titleConfig[item.classList[0]];
+    let parentNode: any = item.parentNode;
+    (parentNode as any).title = titleConfig[item.classList[0]];
   });
 }

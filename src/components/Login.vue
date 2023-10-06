@@ -162,37 +162,37 @@ export default {
       username_valid_failed: false,
       verificationCode_valid_failed: false,
       password_valid_failed: false,
-      lastPath: "1"
+      lastPath: "1",
     };
   },
   watch: {
-    email: function() {
+    email: function () {
       this.email = this.email.replace(/[, \s]/g, "").substring(0, 100);
       this.mail_valid_failed = false;
       this.mail_changed = true;
     },
-    username: function() {
+    username: function () {
       this.username = this.username.replace(/[, \s]/g, "").substring(0, 20);
       this.username_valid_failed = false;
       this.username_changed = true;
     },
-    verificationCode: function() {
+    verificationCode: function () {
       this.verificationCode = this.verificationCode
         .replace(/[, \s]/g, "")
         .substring(0, 6);
       this.verificationCode_valid_failed = false;
       this.verificationCode_changed = true;
     },
-    password: function() {
+    password: function () {
       this.password = this.password.replace(/[, \s]/g, "").substring(0, 20);
       this.password_valid_failed = false;
       this.password_changed = true;
-    }
+    },
   },
   mounted() {
     Auth.init({
       login_url: "#login",
-      forgot_url: "#forgot"
+      forgot_url: "#forgot",
     });
     this.ready();
     console.info("last:" + this.lastPath + ";");
@@ -205,7 +205,7 @@ export default {
         return;
       }
       getVerificationCode(this.email)
-        .then(response => {
+        .then((response) => {
           // 把'剩余倒计时时间'保存到cookie中,有效时间60s
           this.addCookie("countdownStart", new Date().getTime(), 60);
           this.btn_text = "(" + this.countdown_flag + "s)后重新发送";
@@ -213,7 +213,7 @@ export default {
           this.countdown(TIME_COUNT);
           this.$elementMessage(response.message, "success", 3 * 1000);
         })
-        .catch(error => {
+        .catch((error) => {
           this.$elementMessage(error.message, "error", 3 * 1000);
           console.log("err:" + error);
         });
@@ -247,23 +247,23 @@ export default {
         email: this.email,
         username: this.username,
         verificationCode: this.verificationCode,
-        password: this.password
+        password: this.password,
       };
       //注册逻辑
       register(registerInfo)
-        .then(response => {
+        .then((response) => {
           this.register_disabled = true;
           this.$elementMessage(
             response.message + "正准备跳转登录...",
             "success",
             3 * 1000
           );
-          setTimeout(function() {
+          setTimeout(function () {
             _this.account = _this.username;
             _this.doLogin();
           }, 1500);
         })
-        .catch(error => {
+        .catch((error) => {
           this.register_disabled = false;
           this.$elementMessage(error.message, "error", 3 * 1000);
         });
@@ -274,11 +274,11 @@ export default {
       let _this = this;
       let loginParam = {
         account: this.account,
-        password: this.password
+        password: this.password,
       };
       store
         .dispatch("Login", loginParam)
-        .then(response => {
+        .then((response) => {
           this.login_disabled = true;
           store.commit("SET_ACCOUNT", loginParam.account);
           this.$elementMessage(
@@ -286,14 +286,14 @@ export default {
             "success",
             1500
           );
-          setTimeout(function() {
+          setTimeout(function () {
             _this.login_disabled = false;
             _this.$router.go(-1); //返回上一层
             // _this.$router.push({ path: "/" });
           }, 1500);
           return Promise.resolve(response);
         })
-        .catch(error => {
+        .catch((error) => {
           this.$elementMessage(error.message, "error", 3000);
         });
     },
@@ -311,7 +311,7 @@ export default {
         count--;
         let _this = this;
         //设置定时器
-        setTimeout(function() {
+        setTimeout(function () {
           _this.countdown(count);
         }, 1000);
       } else {
@@ -436,8 +436,8 @@ export default {
         //开始倒计时
         this.countdown(TIME_COUNT - t);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

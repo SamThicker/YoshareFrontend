@@ -24,7 +24,7 @@ export default {
           name: "基本信息",
           icon: "",
           link: "/userInfo/simpleInfo",
-          label: "simpleInfo"
+          label: "simpleInfo",
         },
         // {
         //   name: "安全信息",
@@ -36,17 +36,17 @@ export default {
           name: "学习记录",
           icon: "",
           link: "/userInfo/studyRecord",
-          label: "studyRecord"
-        }
+          label: "studyRecord",
+        },
       ],
-      active: -1
+      active: -1,
     };
   },
   mounted() {
     let pathParts = this.$route.path.split("/");
     let option = pathParts[pathParts.length - 1];
     let _this = this;
-    this.settings.forEach(function(setting, index) {
+    this.settings.forEach(function (setting, index) {
       if (setting.label === option) {
         _this.activeEl(index);
       }
@@ -55,8 +55,8 @@ export default {
   methods: {
     activeEl(index) {
       this.active = index;
-    }
-  }
+    },
+  },
 };
 </script>
 

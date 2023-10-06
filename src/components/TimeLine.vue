@@ -31,7 +31,7 @@ export default {
   props: {
     callBack: Function,
     items: Array,
-    endItem: Object
+    endItem: Object,
   },
   data() {
     return {};
@@ -41,9 +41,9 @@ export default {
       if (this.callBack) {
         this.callBack(id, index, content);
       }
-    }
+    },
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 

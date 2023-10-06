@@ -20,6 +20,9 @@
 import HeaderMenu from "../components/HeaderMenu";
 import { mapState } from "vuex";
 import HeaderBarPro from "../components/HeaderBarPro";
+// 注意使用组合api比如显性引入  不能直接使用
+import { ref, watch, computed } from "vue";
+
 export default {
   name: "Home",
   components: { HeaderBarPro, HeaderMenu },
@@ -27,38 +30,46 @@ export default {
     if (this.$route.path === "/group" || !this.userInfo.id) return;
     this.$router.push("/group");
   },
-  watch: {
-    userInfo: function(val) {
-      if (val.id) {
-        this.$router.push("/group");
-      }
-    },
-    path: function(val) {
-      if (val === "/" && this.userInfo.id) {
-        this.$router.push("/group");
-      }
-    }
-  },
-  data() {
-    return {
-      switch_able: false
-    };
-  },
-  computed: {
-    ...mapState({
-      account: state => state.user.account
-    }),
-    userInfo: function() {
-      return this.$store.state.user.info;
-    },
-    path: function() {
-      return this.$route.path;
-    }
-  },
   methods: {
     changeSwitchAble(/*bool*/) {
       this.switch_able = false;
     }
+  },
+  setup() {
+    let switch_able = ref(false);
+
+    let account = computed(
+      ...mapState({
+        account: state => state.user.account
+      })
+    );
+    let userInfo = computed(() => {
+      return this.$store.state.user.info;
+    });
+    let path = computed(() => {
+      return this.$route.path;
+    });
+
+    watch(userInfo, val => {
+      if (val.id) {
+        this.$router.push("/group");
+      }
+    });
+    watch(path, val => {
+      if (val.id) {
+        if (val === "/" && this.userInfo.id) {
+          this.$router.push("/group");
+        }
+      }
+    });
+
+    // 注意 创建好的数据一定要return出去
+    return {
+      switch_able,
+      account,
+      userInfo,
+      path
+    };
   }
 };
 </script>

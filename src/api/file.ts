@@ -1,34 +1,35 @@
+// @ts-nocheck
 import corsRequest from "../../static/utils/corsRequest";
 import request from "../../static/utils/request";
 
 export function uploadFile(url, file) {
-  let headers = {
-    "Content-Type": file.type
+  const headers = {
+    "Content-Type": file.type,
   };
   return corsRequest({
     url: url,
     method: "put",
     data: file,
-    headers: headers
+    headers: headers,
   });
 }
 
 export function getUploadUrl(fileName) {
   return request({
     url: "/file/uploadUrl/" + fileName,
-    method: "get"
+    method: "get",
   });
 }
 
 export async function uploadDirectly(file) {
-  let url = (await getUploadUrl(file.name)).data;
+  const url = (await getUploadUrl(file.name)).data;
   return uploadFile(url, file);
 }
 
 export function getBlogFilePutUrl(userId, filename) {
   return request({
     url: "/file/blogFilePutUrl/" + userId + "/" + filename,
-    method: "get"
+    method: "get",
   });
 }
 
@@ -39,7 +40,7 @@ export function uploadFileToServer(userId, formData) {
     headers: {
       // "content-type": "application/x-www-form-urlencoded"
     },
-    data: formData
+    data: formData,
   });
 }
 
@@ -50,7 +51,7 @@ export function uploadExistFileToServer(userId, formData) {
     headers: {
       // "content-type": "application/x-www-form-urlencoded"
     },
-    data: formData
+    data: formData,
   });
 }
 
@@ -59,15 +60,15 @@ export function downloadFile(fileId) {
     url: "/file/member/file/" + fileId,
     method: "get",
     headers: {
-      responseType: 'blob'
-    }
+      responseType: "blob",
+    },
   });
 }
 
 export function getFileInfo(fileId) {
   return request({
     url: "/file/member/fileInfo/" + fileId,
-    method: "get"
+    method: "get",
   });
 }
 
@@ -76,8 +77,8 @@ export function uploadMultipartFile(formData) {
     url: "/file/member/multipartFile",
     method: "post",
     headers: {
-      "content-type": "application/x-www-form-urlencoded"
+      "content-type": "application/x-www-form-urlencoded",
     },
-    data: formData
+    data: formData,
   });
 }

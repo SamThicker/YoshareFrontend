@@ -11,7 +11,7 @@
 import UserInfoPanelSideBar from "./UserInfoPanelSideBar";
 export default {
   name: "UserInfoPanel",
-  components: { UserInfoPanelSideBar }
+  components: { UserInfoPanelSideBar },
 };
 </script>
 

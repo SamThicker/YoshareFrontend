@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Cookie from "js-cookie";
 
 const TokenKey = "Authentication";
@@ -6,7 +7,7 @@ export function getToken() {
   return Cookie.get(TokenKey);
 }
 
-export function setToken(token) {
+export function setToken(token: string) {
   return Cookie.set(TokenKey, token);
 }
 

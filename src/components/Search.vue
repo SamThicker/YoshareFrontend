@@ -34,27 +34,27 @@ export default {
   },
   data() {
     return {
-      user: this.userInfo
+      user: this.userInfo,
     };
   },
   watch: {
-    searchWD: function(val) {
+    searchWD: function (val) {
       this.search(val);
-    }
+    },
   },
   computed: {
-    userInfo: function() {
+    userInfo: function () {
       return this.$store.state.user.info;
     },
-    searchWD: function() {
+    searchWD: function () {
       return this.$store.state.globalEnv.searchWD;
-    }
+    },
   },
   methods: {
     search(val) {
       console.info(val);
-    }
-  }
+    },
+  },
 };
 </script>
 

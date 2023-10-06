@@ -4,7 +4,7 @@
       v-model="content"
       ref="md"
       @change="change"
-      style="height: 100%;"
+      style="height: 100%"
       @imgAdd="handleEditorImgAdd"
       @imgDel="handleEditorImgDel"
       :ishljs="true"
@@ -18,7 +18,7 @@
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import { getBlogFilePutUrl, uploadFile } from "../api/file";
-import "element-ui/lib/theme-chalk/index.css";
+//import "element-plus/dist/index.css";
 // import xss from "xss";
 
 export default {
@@ -26,24 +26,24 @@ export default {
   props: {
     /*编辑器的内容*/
     value: {
-      type: String
+      type: String,
     },
-    editable: Boolean
+    editable: Boolean,
   },
   watch: {
-    value: function() {
+    value: function () {
       // let xss = require("xss");
       // this.content = xss(this.value);
     },
-    content: function() {
+    content: function () {
       // this.content = this.value;
       //内容改变事件
       this.$emit("input", this.content);
-    }
+    },
   },
   // 注册
   components: {
-    mavonEditor
+    mavonEditor,
   },
   data() {
     return {
@@ -52,12 +52,12 @@ export default {
       imageList: [],
       imageNum: 0,
       xssOption: {
-        onTag: this.onTag
-      }
+        onTag: this.onTag,
+      },
     };
   },
   methods: {
-    onTag(tag/*, html, options*/) {
+    onTag(tag /*, html, options*/) {
       // tag是当前的标签名称，比如<a>标签，则tag的值是'a'
       // html是该标签的HTML，比如<a>标签，则html的值是'<a>'
       // options是一些附加的信息，具体如下：
@@ -70,8 +70,8 @@ export default {
       //   在白名单上：  通过onTagAttr来过滤属性，详见下文
       //   不在白名单上：通过onIgnoreTag指定，详见下文
       if (tag === "object") {
-        console.info("sssssssssssssssss")
-        return "哈哈哈哈哈哈"
+        console.info("sssssssssssssssss");
+        return "哈哈哈哈哈哈";
       }
     },
     //所有操作都会被解析重新渲染
@@ -84,29 +84,28 @@ export default {
       // console.info(this.html)
       // this.html = "";
       console.info(value);
-      value = ""
+      value = "";
       // render = ""
-      console.info(render)
-      render = ""
+      console.info(render);
+      render = "";
     },
     // 提交
-    submit() {
-    },
+    submit() {},
     //添加图片
     upLoadPic(file) {
       let url;
       let userId = this.$store.state.user.info.id;
       return getBlogFilePutUrl(userId, file.name)
-        .then(function(res) {
+        .then(function (res) {
           let putUrl = res.data;
-          return uploadFile(putUrl, file).then(function(res) {
+          return uploadFile(putUrl, file).then(function (res) {
             // 获取图片地址
             url = "http://" + window.location.host + ":" + res.config.url;
             url = url.replace(url.match("\\?.*"), "");
             return Promise.resolve(url);
           });
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.info("error:" + err);
         });
     },
@@ -137,9 +136,9 @@ export default {
     //删除图片
     handleEditorImgDel(pos) {
       delete this.imgFile[pos];
-    }
+    },
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 

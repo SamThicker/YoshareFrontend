@@ -23,14 +23,14 @@ export default {
   name: "SimpleHeaderBarPro",
   props: {
     switch_able: Boolean,
-    switching: Boolean
+    switching: Boolean,
   },
   data() {
     return {};
   },
   watch: {},
   mounted() {},
-  methods: {}
+  methods: {},
 };
 </script>
 

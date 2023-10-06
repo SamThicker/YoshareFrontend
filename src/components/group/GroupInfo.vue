@@ -21,20 +21,20 @@ export default {
     }
   },
   watch: {
-    path: function(path) {
+    path: function (path) {
       let pathParts = path.split("/");
       if (pathParts[pathParts.length - 1] === "setting") {
         let pathTo = this.$route.path + "/simple";
         this.$router.push(pathTo);
       }
     },
-    deep: true
+    deep: true,
   },
   computed: {
-    path: function() {
+    path: function () {
       return this.$route.path;
-    }
-  }
+    },
+  },
 };
 </script>
 

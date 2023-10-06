@@ -1,3 +1,5 @@
+// @ts-nocheck
+// @ts-nocheck
 import request from "../../static/utils/request";
 
 export function getOwnResource(id, type, classification) {
@@ -8,8 +10,8 @@ export function getOwnResource(id, type, classification) {
     method: "get",
     params: {
       type: type,
-      classification
-    }
+      classification,
+    },
   });
 }
 
@@ -17,7 +19,7 @@ export function delResourceNote(userId, resource) {
   return request({
     url: "resource/" + userId + "/ownResource",
     method: "delete",
-    data: resource
+    data: resource,
   });
 }
 
@@ -27,8 +29,8 @@ export function addMemClassification(userId, type, name) {
     method: "put",
     params: {
       type: type,
-      name: name
-    }
+      name: name,
+    },
   });
 }
 
@@ -37,8 +39,8 @@ export function getMemClassification(userId, type) {
     url: "resource/" + userId + "/ownResource/classification",
     method: "get",
     params: {
-      type: type
-    }
+      type: type,
+    },
   });
 }
 
@@ -46,7 +48,7 @@ export function updateMemClassification(userId, classification) {
   return request({
     url: "resource/" + userId + "/ownResource/classification",
     method: "patch",
-    data: classification
+    data: classification,
   });
 }
 
@@ -55,8 +57,8 @@ export function deleteMemClassification(userId, classificationId) {
     url: "resource/" + userId + "/ownResource/classification",
     method: "delete",
     params: {
-      classificationId: classificationId
-    }
+      classificationId: classificationId,
+    },
   });
 }
 
@@ -69,8 +71,8 @@ export function addMemFavPage(userId, title, introduction, url, classis) {
       title: title,
       introduction: introduction,
       url: url,
-      classis: classis
-    }
+      classis: classis,
+    },
   });
 }
 
@@ -79,8 +81,8 @@ export function getMemFavPage(userId, webId) {
     url: "resource/" + userId + "/ownResource/web",
     method: "get",
     params: {
-      webId: webId
-    }
+      webId: webId,
+    },
   });
 }
 
@@ -89,15 +91,15 @@ export function addGroupClassification(groupId, type, name) {
     url: "resource/resClassis/group/" + groupId + "/" + type,
     method: "post",
     params: {
-      name: name
-    }
+      name: name,
+    },
   });
 }
 
 export function getGroupClassification(groupId, type) {
   return request({
     url: "resource/resClassis/group/" + groupId + "/" + type,
-    method: "get"
+    method: "get",
   });
 }
 
@@ -106,14 +108,14 @@ export function updateGroupClassification(groupId, type, classisId, name) {
     url: "resource/resClassis/group/" + groupId + "/" + type + "/" + classisId,
     method: "post",
     params: {
-      name: name
-    }
+      name: name,
+    },
   });
 }
 
 export function deleteGroupClassification(groupId, type, classisId) {
   return request({
     url: "resource/resClassis/group/" + groupId + "/" + type + "/" + classisId,
-    method: "delete"
+    method: "delete",
   });
 }

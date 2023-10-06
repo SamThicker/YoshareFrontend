@@ -1,14 +1,15 @@
+// @ts-nocheck
 const globalEnv = {
   state: {
-    searchWD: ""
+    searchWD: "",
   },
 
   mutations: {
     SET_SEARCHWD: (state, word) => {
       state.searchWD = word;
-    }
+    },
   },
-  actions: {}
+  actions: {},
 };
 
 export default globalEnv;

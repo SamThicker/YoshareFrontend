@@ -5,7 +5,7 @@
       :type="'FAVORITE'"
       :previewItemCallback="previewItemCallback"
       :classificationsCallback="classificationsCallBack"
-      :refresh.sync="refresh"
+      v-model:refresh="refresh"
     ></resource-panel>
 
     <div class="note-content">
@@ -64,11 +64,11 @@ export default {
         star: this.itemStarClicked,
         unstar: this.itemUnstarClicked,
         share: this.itemShareClicked,
-        del: null
+        del: null,
       },
       classificationsCallBack: {
         click: null,
-        addRes: this.addFavoriteWebPageDialog
+        addRes: this.addFavoriteWebPageDialog,
       },
       resourceName: "",
       resourceIntroduction: "",
@@ -78,21 +78,21 @@ export default {
       refresh: false,
       currentClassis: null,
       destClassis: null,
-      showMenu: false
+      showMenu: false,
     };
   },
   // window.open(_this.iframeUrl, "_blank");
   computed: {
-    userId: function() {
+    userId: function () {
       return this.$store.state.user.info.id;
-    }
+    },
   },
   mounted() {},
   methods: {
     newTab() {
       window.open(this.iframeUrl, "_blank");
     },
-    addFavoriteWebPageDialog: function(classis) {
+    addFavoriteWebPageDialog: function (classis) {
       this.destClassis = classis;
       this.createRes = true;
       document.addEventListener("click", this.clickListener);
@@ -107,10 +107,10 @@ export default {
         this.resourceUrl,
         this.destClassis.id
       )
-        .then(function() {
+        .then(function () {
           _this.refreshData();
         })
-        .catch(err => {
+        .catch((err) => {
           console.info("err:" + err);
         });
     },
@@ -128,22 +128,22 @@ export default {
       let webId = resource.resourceRef;
       //获取网页的URL
       getMemFavPage(this.userId, webId)
-        .then(function(res) {
+        .then(function (res) {
           //给iframe设置URL
           _this.iframeUrl = res.data.url;
         })
-        .catch(err => {
+        .catch((err) => {
           console.info("err:" + err.message);
         });
     },
     refreshData() {
       let _this = this;
       this.refresh = true;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.refresh = false;
       }, 50);
-    }
-  }
+    },
+  },
 };
 </script>
 

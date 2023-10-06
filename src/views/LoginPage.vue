@@ -4,7 +4,7 @@
     <introduction-panel>
       <template v-slot:title>
         <div>
-          <h1 style="margin: 0 auto;">注册指引</h1>
+          <h1 style="margin: 0 auto">注册指引</h1>
         </div>
       </template>
       <template v-slot:content>
@@ -27,7 +27,7 @@ export default {
     console.info("beforeRouteEnter第一个参数to", to);
     console.log("beforeRouteEnter第二个参数from", from);
     console.log("beforeRouteEnter第三个参数next", next);
-    next(vm => {
+    next((vm) => {
       //因为当钩子执行前，组件实例还没被创建
       // vm 就是当前组件的实例相当于上面的 this，所以在 next 方法里你就可以把 vm 当 this 来用了。
       //当前组件的实例
@@ -45,10 +45,10 @@ export default {
         "验证码：":
           "6位数字。验证码用于校验输入的邮箱是否属于您本人，验证码有效期为5分钟。",
         "密码：":
-          "6-20位字符。密码用于账号登录，请保管好您的密码，不要轻易透露给他人。密码不能包含空格以及，此外无特殊要求。"
-      }
+          "6-20位字符。密码用于账号登录，请保管好您的密码，不要轻易透露给他人。密码不能包含空格以及，此外无特殊要求。",
+      },
     };
-  }
+  },
 };
 </script>
 

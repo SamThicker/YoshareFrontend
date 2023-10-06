@@ -4,13 +4,16 @@
 
     <div class="reading-record" v-show="showRecords">
       <ul>
-        <li class="record-item" v-for="record in recordDetails" :key="record.id">
+        <li
+          class="record-item"
+          v-for="record in recordDetails"
+          :key="record.id"
+        >
           <span class="record-item-title">{{ getTitle(record) }}</span>
           <el-button type="primary" @click="read(record)">再读</el-button>
         </li>
       </ul>
     </div>
-
   </div>
 </template>
 
@@ -27,41 +30,41 @@ export default {
       dates: [],
       counts: [],
       showRecords: false,
-      recordDetails: []
+      recordDetails: [],
     };
   },
   computed: {
-    userId: function() {
+    userId: function () {
       return this.$store.state.user.info.id;
-    }
+    },
   },
   watch: {
-    userId: function() {
+    userId: function () {
       this.getRecord();
     },
-    readRecords: function(val) {
+    readRecords: function (val) {
       if (!val) return;
       this.dates.length = 0;
       this.counts.length = 0;
-      val.forEach(record => {
+      val.forEach((record) => {
         this.dates.push(record.date);
         this.counts.push(record.count);
       });
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         this.drawLine("chart");
       });
-    }
+    },
   },
   methods: {
-    getRecord: function() {
+    getRecord: function () {
       let id = this.userId;
       if (!id) return;
       let _this = this;
       queryReadNoteLog(id, "MONTH")
-        .then(function(res) {
+        .then(function (res) {
           _this.readRecords = res.data;
         })
-        .catch(err => console.info(err));
+        .catch((err) => console.info(err));
     },
     getTitle(record) {
       if (!record) return;
@@ -78,7 +81,7 @@ export default {
         let userId = this.$store.state.user.info.id;
         document.addEventListener("click", this.clickListerner);
         queryReadNoteDetail(userId, date)
-          .then(function(res) {
+          .then(function (res) {
             _this.recordDetails = res.data;
             _this.showRecords = true;
           })
@@ -99,32 +102,32 @@ export default {
       this.charts.on("click", this.eConsole);
       this.charts.setOption({
         tooltip: {
-          trigger: "axis"
+          trigger: "axis",
         },
         legend: {
-          data: ["近一个月笔记阅读记录"]
+          data: ["近一个月笔记阅读记录"],
         },
         grid: {
           left: "3%",
           right: "7%",
           bottom: "3%",
-          containLabel: true
+          containLabel: true,
         },
 
         toolbox: {
           feature: {
-            saveAsImage: {}
-          }
+            saveAsImage: {},
+          },
         },
         xAxis: {
           type: "category",
           boundaryGap: false,
           data: this.dates,
-          name: "日期"
+          name: "日期",
         },
         yAxis: {
           type: "value",
-          name: "数量"
+          name: "数量",
         },
         series: [
           {
@@ -133,9 +136,9 @@ export default {
             name: "近一个月笔记阅读记录",
             type: "line",
             stack: "总量",
-            data: this.counts
-          }
-        ]
+            data: this.counts,
+          },
+        ],
       });
     },
     clickListerner(e) {
@@ -143,14 +146,14 @@ export default {
       if (el.contains(e.target)) return;
       this.showRecords = false;
       document.removeEventListener("click", this.clickListerner);
-    }
+    },
   },
   mounted() {
     this.getRecord();
   },
-  destroyed() {
+  unmounted() {
     document.removeEventListener("click", this.clickListerner);
-  }
+  },
 };
 </script>
 
