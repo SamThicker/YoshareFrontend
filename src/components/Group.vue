@@ -12,7 +12,7 @@
             <i class="el-icon-cpu"></i>
           </div>
           <div class="avatar">
-            <img :src="'http://localhost' + group.icon" />
+            <img :src="group.icon" />
           </div>
           <div class="group-name">{{ group.name }}</div>
           <div class="group-data">

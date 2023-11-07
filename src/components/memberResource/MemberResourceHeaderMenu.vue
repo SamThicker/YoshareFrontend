@@ -55,12 +55,9 @@ export default {
   name: "MemberResourceHeaderMenu",
   watch: {
     info: function(info) {
-      let baseUrl = window.location.host;
       let icon = info.icon;
       if (!icon) {
-        icon = "http://" + baseUrl + "/static/icon/DEFAULT.png";
-      } else {
-        icon = "http://" + baseUrl + icon;
+        icon = "static/icon/DEFAULT.png";
       }
       return icon;
     },
@@ -74,12 +71,9 @@ export default {
   computed: {
     ...mapState({
       icon: function(state) {
-        let baseUrl = window.location.host;
         let icon = state.user.info.icon;
         if (!icon) {
-          icon = "http://" + baseUrl + "/static/icon/DEFAULT.png";
-        } else {
-          icon = "http://baseUrl" + icon;
+          icon = "static/icon/DEFAULT.png";
         }
         return icon;
       },

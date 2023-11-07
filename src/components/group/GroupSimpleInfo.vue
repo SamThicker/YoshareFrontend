@@ -49,7 +49,7 @@ export default {
       options: {
         src: this.icon,
         size: 100,
-        alt: "http://localhost/static/groupAvatar/DEFAULT.png",
+        alt: "static/groupAvatar/DEFAULT.png",
         accept: "image/jpeg,image/png",
         serverUrl: "",
         header: null,
